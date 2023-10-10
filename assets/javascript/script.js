@@ -53,11 +53,11 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .then(response => response.json())
     .then(data => {
-        alert('Ocorrência cadastrada com sucesso!');
+        alert('Ocorrencia cadastrada com sucesso!');
     })
     .catch(error => {
         console.error('Erro:', error);
-        alert('Erro ao cadastrar ocorrência.');
+        alert('Erro ao cadastrar ocorrencia.');
     });
 });
 
