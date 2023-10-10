@@ -2,7 +2,7 @@
 module.exports = {
   // Metodo de criaçãod a tabela
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('ocorrencias', {
+    await queryInterface.createTable('Ocorrencia', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -41,6 +41,6 @@ module.exports = {
   },
   //Remoção da tabela
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('ocorrencias');
+    await queryInterface.dropTable('Ocorrencia');
   }
 };

@@ -9,4 +9,10 @@ module.exports = {
     dialect: 'postgres',
     operatorsAliases: false
   },
+  test: {
+
+  },
+  production: {
+
+  }
 };

@@ -1,35 +1,18 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const dotenv = require('dotenv').config();
+const { development } = require('../config/config');
+const { Sequelize } = require('sequelize');
 
-const app = express();
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+const sequelize = new Sequelize(development.database, development.username, development.password, {
+  host: development.host,
+  dialect: development.dialect
 });
 
+// Verificar a conexão com o banco de dados
+sequelize.authenticate()
+  .then(() => {
+    console.log('Conexão estabelecida com sucesso.');
+  })
+  .catch(err => {
+    console.error('Erro ao conectar com o banco de dados:', err);
+  });
 
-const { Ocorrencia } = require('./models');
-
-app.post('/ocorrencias', async (req, res) => {
-    try {
-        const ocorr = await Ocorrencia.create(req.body);
-        res.status(201).send(ocorr);
-    } catch (error) {
-        res.status(400).send(error);
-    }
-});
-
-app.get('/ocorrencias', async (req, res) => {
-    try {
-        const ocorrencias = await Ocorrencia.findAll();
-        res.status(200).send(ocorrencias);
-    } catch (error) {
-        res.status(500).send(error);
-    }
-});
+module.exports = sequelize;

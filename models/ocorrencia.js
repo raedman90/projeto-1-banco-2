@@ -1,27 +1,27 @@
-module.exports = (sequelize, DataTypes) => {
-    const Ocorrencia = sequelize.define('Ocorrencia', {
-      titulo: {
+const { DataTypes } = require('sequelize');
+const sequelize = require('../database/server');
+
+const Ocorrencia = sequelize.define('Ocorrencia', {
+    titulo: {
         type: DataTypes.STRING,
         allowNull: false
-      },
-      tipo: {
+    },
+    tipo: {
         type: DataTypes.STRING,
         allowNull: false
-      },
-      data: {
+    },
+    data: {
         type: DataTypes.DATEONLY,
         allowNull: false
-      },
-      hora: {
+    },
+    hora: {
         type: DataTypes.TIME,
         allowNull: false
-      },
-      localizacao: {
+    },
+    localizacao: {
         type: DataTypes.GEOMETRY('POINT'),
         allowNull: false
-      }
-    });
-  
-    return Ocorrencia;
-  };
-  
+    }
+});
+
+module.exports = Ocorrencia;
