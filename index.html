@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <!-- Script da API do Google Maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap" async defer></script>
+    <script src="assets/javascript/script.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Cadastro de Ocorrencias</title>
+</head>
+<body>
+
+<div class="container">
+    <!-- Div para o mapa -->
+    <div id="map"></div>
+    <h2>Cadastrar Ocorrencia</h2>
+    <form id="formOcorrencia">
+        <div class="form-group">
+            <label for="titulo">Titulo:</label>
+            <input type="text" class="form-control" id="titulo" name="titulo" required>
+        </div>
+        <div class="form-group">
+            <label for="tipo">Tipo:</label>
+            <select class="form-control" id="tipo" name="tipo" required>
+                <option value="assalto">Assalto</option>
+                <option value="furto">Furto</option>
+                <!-- Adicione outras opções conforme necessário -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="data">Data:</label>
+            <input type="date" class="form-control" id="data" name="data" required>
+        </div>
+        <div class="form-group">
+            <label for="hora">Hora:</label>
+            <input type="time" class="form-control" id="hora" name="hora" required>
+        </div>
+        <div class="form-group">
+            <label for="latitude">Latitude:</label>
+            <input type="text" class="form-control" id="latitude" name="latitude" readonly>
+        </div>
+        <div class="form-group">
+            <label for="longitude">Longitude:</label>
+            <input type="text" class="form-control" id="longitude" name="longitude" readonly>
+        </div>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </form>
+</div>
+</body>
+</html>
+
