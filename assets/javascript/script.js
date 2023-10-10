@@ -93,8 +93,4 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('Erro ao cadastrar ocorrencia.');
     });
 });
-
-
-
-
 });
