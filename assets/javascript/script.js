@@ -7,13 +7,46 @@ function initMap() {
         center: center, 
         zoom: 14,
     });
-
     marker = new google.maps.Marker({
         position: center,
         map: map,
         draggable: true
     });
+    function displayOcorrencias() {
+        fetch('/ocorrencias')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(ocorrencia => {
+                let marker = new google.maps.Marker({
+                    position: {
+                        lat: ocorrencia.localizacao.coordinates[1], 
+                        lng: ocorrencia.localizacao.coordinates[0]
+                    },
+                    map: map,
+                    icon: 'https://i.imgur.com/bCZsADz.png',
+                    title: ocorrencia.titulo
+                });
 
+                //Detalhes da ocorrencia
+                let infoWindow = new google.maps.InfoWindow({
+                    content: `
+                        <strong>Titulo:</strong> ${ocorrencia.titulo}<br>
+                        <strong>Tipo:</strong> ${ocorrencia.tipo}<br>
+                        <strong>Data:</strong> ${ocorrencia.data}<br>
+                        <strong>Hora:</strong> ${ocorrencia.hora}<br>
+                    `
+                });
+
+                marker.addListener('click', function() {
+                    infoWindow.open(map, marker);
+                });
+            });
+        })
+        .catch(error => {
+            console.error('Erro ao buscar ocorrencias:', error);
+        });
+    }
+    displayOcorrencias();
     google.maps.event.addListener(marker, 'dragend', function(event) {
         document.getElementById('latitude').value = event.latLng.lat();
         document.getElementById('longitude').value = event.latLng.lng();
