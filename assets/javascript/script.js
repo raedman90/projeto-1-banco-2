@@ -87,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(response => response.json())
     .then(data => {
         alert('Ocorrencia cadastrada com sucesso!');
+        window.location.reload();
     })
     .catch(error => {
         console.error('Erro:', error);
