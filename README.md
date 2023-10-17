@@ -7,6 +7,8 @@ Este projeto é uma aplicação web para registro e visualização de ocorrências pol
 - Node.js
 - Express
 - Sequelize
+- Cors
+- Dotenv
 - PostgreSQL com PostGIS
 - Google Maps JavaScript API
 
