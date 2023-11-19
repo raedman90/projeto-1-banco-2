@@ -1,27 +1,19 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../database/server');
+const mongoose = require('mongoose');
 
-const Ocorrencia = sequelize.define('Ocorrencia', {
-    titulo: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    tipo: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    data: {
-        type: DataTypes.DATEONLY,
-        allowNull: false
-    },
-    hora: {
-        type: DataTypes.TIME,
-        allowNull: false
-    },
+const ocorrenciaSchema = new mongoose.Schema({
+    titulo: String,
+    tipo: String,
+    data: Date,
+    hora: String,
     localizacao: {
-        type: DataTypes.GEOMETRY('POINT'),
-        allowNull: false
+        type: { type: String, enum: ['Point'], required: true },
+        coordinates: { type: [Number], required: true }
     }
 });
+
+// Para indexar a localização para consultas geoespaciais
+ocorrenciaSchema.index({ localizacao: '2dsphere' });
+
+const Ocorrencia = mongoose.model('Ocorrencia', ocorrenciaSchema);
 
 module.exports = Ocorrencia;

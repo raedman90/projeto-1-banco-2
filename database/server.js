@@ -1,18 +1,14 @@
-const { development } = require('../config/config');
-const { Sequelize } = require('sequelize');
+const mongoose = require('mongoose');
 
-const sequelize = new Sequelize(development.database, development.username, development.password, {
-  host: development.host,
-  dialect: development.dialect
-});
+const connectDB = async () => {
+    try {
+        await mongoose.connect(process.env.MONGODB_URI, {
+        });
+        console.log('Conectado ao MongoDB Atlas');
+    } catch (error) {
+        console.error('Erro ao conectar ao MongoDB Atlas:', error);
+        process.exit(1);
+    }
+};
 
-// Verificar a conexão com o banco de dados
-sequelize.authenticate()
-  .then(() => {
-    console.log('Conexão estabelecida com sucesso.');
-  })
-  .catch(err => {
-    console.error('Erro ao conectar com o banco de dados:', err);
-  });
-
-module.exports = sequelize;
+module.exports = connectDB;
