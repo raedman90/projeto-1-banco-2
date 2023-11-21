@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Erro:', error);
-            alert('Erro ao cadastrar ocorrencia.');
+            alert('Erro ao cadastrar ocorrncia.');
         });
     });
 });

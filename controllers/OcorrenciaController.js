@@ -45,3 +45,15 @@ module.exports.DeletarOcorrencia = async function (req, res) {
         res.status(500).send(error);
     }
 };
+
+module.exports.GetOcorrenciaById = async function(req, res) {
+    try {
+        const ocorrencia = await Ocorrencia.findById(req.params.id);
+        if (!ocorrencia) {
+            return res.status(404).send('Ocorrência não encontrada');
+        }
+        res.status(200).send(ocorrencia);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+};
