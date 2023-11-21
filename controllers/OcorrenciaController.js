@@ -13,7 +13,7 @@ module.exports.CreateOcorrencia = async function (req, res) {
 // Listar todas as ocorrências
 module.exports.ListarOcorrencia = async function (req, res) {
     try {
-        const ocorrencias = await Ocorrencia.find();
+        const ocorrencias = await Ocorrencia.find().sort({ data: -1 });
         res.status(200).send(ocorrencias);
     } catch (error) {
         res.status(500).send(error);
