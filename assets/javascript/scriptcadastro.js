@@ -13,9 +13,6 @@ function initMap() {
         draggable: true
     });
 
-    // Carregar ocorrências ao iniciar o mapa
-    displayOcorrencias();
-
     // Atualizar campos de latitude e longitude ao arrastar o marcador
     google.maps.event.addListener(marker, 'dragend', function(event) {
         document.getElementById('latitude').value = event.latLng.lat();
@@ -23,44 +20,11 @@ function initMap() {
     });
 }
 
-function displayOcorrencias() {
-    fetch('/ocorrencias')
-    .then(response => response.json())
-    .then(data => {
-        data.forEach(ocorrencia => {
-            let ocorrenciaMarker = new google.maps.Marker({
-                position: {
-                    lat: ocorrencia.localizacao.coordinates[1], 
-                    lng: ocorrencia.localizacao.coordinates[0]
-                },
-                map: map,
-                icon: 'https://i.imgur.com/bCZsADz.png',
-                title: ocorrencia.titulo
-            });
-
-            let infoWindow = new google.maps.InfoWindow({
-                content: `
-                    <strong>Titulo:</strong> ${ocorrencia.titulo}<br>
-                    <strong>Tipo:</strong> ${ocorrencia.tipo}<br>
-                    <strong>Data:</strong> ${ocorrencia.data}<br>
-                    <strong>Hora:</strong> ${ocorrencia.hora}<br>
-                `
-            });
-
-            ocorrenciaMarker.addListener('click', function() {
-                infoWindow.open(map, ocorrenciaMarker);
-            });
-        });
-    })
-    .catch(error => {
-        console.error('Erro ao buscar ocorrencias:', error);
-    });
-}
-
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('formOcorrencia').addEventListener('submit', function(e) {
         e.preventDefault();
 
+        // Coleta os dados do formulário
         const data = {
             titulo: document.getElementById('titulo').value,
             tipo: document.getElementById('tipo').value,
@@ -75,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
 
+        // Envia a requisição POST para o servidor
         fetch('/ocorrencias', {
             method: 'POST',
             headers: {
@@ -85,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             alert('Ocorrencia cadastrada com sucesso!');
-            window.location.reload(); // Recarrega a página para atualizar o mapa
+            window.location.href = '/'; // Redireciona para a página inicial após o cadastro
         })
         .catch(error => {
             console.error('Erro:', error);
