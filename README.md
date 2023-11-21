@@ -6,11 +6,11 @@ Este projeto é uma aplicação web para registro e visualização de ocorrênci
 
 - Node.js
 - Express
-- Sequelize
+- Mongoose
 - Cors
 - Dotenv
 - Nodemon
-- PostgreSQL com PostGIS
+- Mongodb Atlas
 - Google Maps JavaScript API
 
 ## Configuração do Ambiente
@@ -21,13 +21,8 @@ cd projeto-1-banco-2
 npm install
 
 - Crie o arquivo .env e preencha com as informações.
-DB_HOST =
-DB_USER =
-DB_PASS
-DB_DATABASE =
 API_PORT =
+MONGODB_URI =
 
-- Utilize o comando abaixo para criar a tabela Ocorrencias no seu banco de dados PostGIS.
-npx sequelize-cli db:migrate
 
 npm start
