@@ -11,6 +11,7 @@ Este projeto é uma aplicação web para registro e visualização de ocorrênci
 - Dotenv
 - Nodemon
 - Mongodb Atlas
+- JavaScript
 - Google Maps JavaScript API
 
 ## Configuração do Ambiente
