@@ -5,7 +5,6 @@ const { redis } = require('../database/server');
 module.exports.CreateOcorrencia = async function (req, res) {
     try {
         const novaOcorr = await Ocorrencia.create(req.body);
-
         // Adicionar a nova ocorrência ao cache da lista de ocorrências
         const ocorrenciasCache = await redis.get('listaOcorrencias');
         if (ocorrenciasCache) {

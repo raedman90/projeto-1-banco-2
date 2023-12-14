@@ -31,58 +31,88 @@ function initMap() {
             });
 
         }, function() {
-            // Fun??o de callback para lidar com erros
             handleLocationError(true, map.getCenter());
         });
     } else {
-        // O navegador n?o suporta Geolocaliza??o
         handleLocationError(false, map.getCenter());
     }
 }
 
 function handleLocationError(browserHasGeolocation, pos) {
-    // Aqui voc? pode adicionar um alerta ou uma l?gica para lidar com o erro
     console.log(browserHasGeolocation ?
-                'Erro: A Geolocaliza??o falhou.' :
-                'Erro: Seu navegador n?o suporta geolocaliza??o.');
+                'Erro: A Geolocalizacao falhou.' :
+                'Erro: Seu navegador n?o suporta geolocalizacao.');
 }
 
+function validarFormulario() {
+    let valido = true;
+    let mensagensErro = '';
 
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('formOcorrencia').addEventListener('submit', function(e) {
-        e.preventDefault();
+    const titulo = document.getElementById('titulo').value.trim();
+    const tipo = document.getElementById('tipo').value.trim();
+    const data = document.getElementById('data').value.trim();
+    const hora = document.getElementById('hora').value.trim();
 
-        // Coleta os dados do formulário
-        const data = {
-            titulo: document.getElementById('titulo').value,
-            tipo: document.getElementById('tipo').value,
-            data: document.getElementById('data').value,
-            hora: document.getElementById('hora').value,
-            localizacao: {
-                type: "Point",
-                coordinates: [
-                    parseFloat(document.getElementById('longitude').value),
-                    parseFloat(document.getElementById('latitude').value)
-                ]
-            }
-        };
+    if (!titulo) {
+        mensagensErro += 'O titulo e obrigatorio.\n';
+        valido = false;
+    }
+    if (!tipo) {
+        mensagensErro += 'O tipo e obrigatorio.\n';
+        valido = false;
+    }
+    if (!data) {
+        mensagensErro += 'A data e obrigatoria.\n';
+        valido = false;
+    }
+    if (!hora) {
+        mensagensErro += 'A hora e obrigatoria.\n';
+        valido = false;
+    }
 
-        // Envia a requisição POST para o servidor
-        fetch('/ocorrencias', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert('Ocorrencia cadastrada com sucesso!');
-            window.location.href = '/'; // Redireciona para a página inicial após o cadastro
-        })
-        .catch(error => {
-            console.error('Erro:', error);
-            alert('Erro ao cadastrar ocorrencia.');
-        });
+    if (!valido) {
+        alert(mensagensErro);
+    }
+
+    return valido;
+}
+
+document.getElementById('formOcorrencia').addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (!validarFormulario()) {
+        e.preventDefault(); // Impede o envio do formul?rio se a valida??o falhar
+    }
+    // Coleta os dados do formulário
+    const data = {
+        titulo: document.getElementById('titulo').value,
+        tipo: document.getElementById('tipo').value,
+        data: document.getElementById('data').value,
+        hora: document.getElementById('hora').value,
+        localizacao: {
+            type: "Point",
+            coordinates: [
+                parseFloat(document.getElementById('longitude').value),
+                parseFloat(document.getElementById('latitude').value)
+            ]
+        }
+    };
+
+    // Envia a requisição POST para o servidor
+    fetch('/ocorrencias', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert('Ocorrencia cadastrada com sucesso!');
+        window.location.href = '/'; // Redireciona para a pagina inicial apos o cadastro
+    })
+    .catch(error => {
+        //console.error('Erro:', error);
+        alert('Erro ao cadastrar ocorrencia.');
+        console.error('Erro:', error);
     });
 });

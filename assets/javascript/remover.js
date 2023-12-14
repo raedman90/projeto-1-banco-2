@@ -41,7 +41,7 @@ function removerOcorrencia(id) {
         fetch(`/ocorrencias/${id}`, { method: 'DELETE' })
         .then(response => {
             if (response.ok) {
-                alert('Ocorrência removida com sucesso!');
+                alert('Ocorrencia removida com sucesso!');
                 window.location.reload();
             } else {
                 alert('Erro ao remover ocorrência.');

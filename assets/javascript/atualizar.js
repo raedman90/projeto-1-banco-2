@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
-            alert('Ocorrência atualizada com sucesso!');
+            alert('Ocorrencia atualizada com sucesso!');
             window.location.href = '/atualizar.html';
         })
         .catch(error => {
