@@ -11,6 +11,7 @@ Este projeto é uma aplicação web para registro e visualização de ocorrênci
 - Dotenv
 - Nodemon
 - Mongodb Atlas
+- Redis
 - JavaScript
 - Google Maps JavaScript API
 
@@ -24,6 +25,12 @@ npm install
 - Crie o arquivo .env e preencha com as informações.
 API_PORT =
 MONGODB_URI =
-
+REDIS_HOST = 
+REDIS_PORT = 
+REDIS_PASSWORD =
 
 npm start
+
+## Realiando testes
+
+npx cypress open
